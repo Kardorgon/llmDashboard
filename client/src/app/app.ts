@@ -24,6 +24,16 @@ export class App {
   protected readonly promptInput = signal('');
   protected readonly canSend = computed(() => this.promptInput().trim().length > 0 && !this.isStreaming());
 
+  protected onPromptKeydown(event: KeyboardEvent): void {
+    if (event.key !== 'Enter' || event.shiftKey) {
+      return;
+    }
+    event.preventDefault();
+    if (this.canSend()) {
+      void this.sendPrompt();
+    }
+  }
+
   protected async sendPrompt(): Promise<void> {
     const prompt = this.promptInput().trim();
     if (!prompt) {

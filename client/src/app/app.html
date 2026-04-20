@@ -83,6 +83,7 @@
         id="promptInput"
         [ngModel]="promptInput()"
         (ngModelChange)="promptInput.set($event)"
+        (keydown)="onPromptKeydown($event)"
         name="promptInput"
         rows="3"
         placeholder="Explain this month's changes and suggest actions."
