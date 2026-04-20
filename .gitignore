@@ -1,0 +1,12 @@
+# Node / Angular
+node_modules/
+client/node_modules/
+client/dist/
+
+# .NET build outputs
+server/bin/
+server/obj/
+
+# IDE
+.vscode/
+.idea/

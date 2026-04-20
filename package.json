@@ -1,0 +1,16 @@
+{
+  "name": "smart-angular-dashboard-llm",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Angular 21 + .NET 9 Smart Dashboard with Gemini streaming and minimal RAG.",
+  "scripts": {
+    "dev:client": "npm --prefix client run start",
+    "dev:server": "dotnet watch --project server run",
+    "build:client": "npm --prefix client run build",
+    "build:server": "dotnet build server/server.csproj",
+    "build": "npm run build:client && npm run build:server",
+    "test:client": "npm --prefix client run test -- --run",
+    "test:server": "dotnet test server/server.csproj",
+    "test": "npm run test:client && npm run test:server"
+  }
+}

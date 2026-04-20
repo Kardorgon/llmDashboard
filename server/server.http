@@ -1,6 +1,29 @@
 @server_HostAddress = http://localhost:5137
 
-GET {{server_HostAddress}}/weatherforecast/
+GET {{server_HostAddress}}/health
 Accept: application/json
+
+###
+
+POST {{server_HostAddress}}/api/chat/stream
+Accept: text/event-stream
+Content-Type: application/json
+
+{
+  "dashboardSnapshotId": "snapshot-demo",
+  "dashboardSnapshot": {
+    "title": "Sales Performance Dashboard",
+    "generatedAtIso": "2026-04-20T10:00:00Z",
+    "kpis": [
+      { "id": "revenue", "label": "Monthly Revenue", "value": 128400, "unit": "USD", "trendPercent": 7.9 }
+    ],
+    "regions": [
+      { "region": "North America", "revenue": 64200, "deals": 58, "churnPercent": 2.3 }
+    ]
+  },
+  "messages": [
+    { "role": "user", "content": "Summarize the current dashboard and suggest one action." }
+  ]
+}
 
 ###
