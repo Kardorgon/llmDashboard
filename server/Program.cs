@@ -1,10 +1,17 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using server.Configuration;
 using server.Contracts;
 using server.Services;
 using server.Services.Llm;
 using server.Services.Rag;
+
+var sseJsonOptions = new JsonSerializerOptions
+{
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+};
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,7 +73,7 @@ app.MapPost(
             {
                 await foreach (var chunk in orchestrator.StreamAnswerAsync(request, cancellationToken))
                 {
-                    await writer.WriteAsync($"data: {JsonSerializer.Serialize(chunk)}\n\n");
+                    await writer.WriteAsync($"data: {JsonSerializer.Serialize(chunk, sseJsonOptions)}\n\n");
                     await writer.FlushAsync(cancellationToken);
                 }
             }
@@ -77,7 +84,7 @@ app.MapPost(
             catch (Exception exception)
             {
                 var errorChunk = new ChatStreamChunkDto("error", Message: exception.Message);
-                await writer.WriteAsync($"data: {JsonSerializer.Serialize(errorChunk)}\n\n");
+                await writer.WriteAsync($"data: {JsonSerializer.Serialize(errorChunk, sseJsonOptions)}\n\n");
                 await writer.FlushAsync(cancellationToken);
             }
         }
