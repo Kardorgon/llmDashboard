@@ -29,6 +29,7 @@ export class ChatService {
 
     this.errorState.set(null);
     this.activeAbortController?.abort();
+    const contextMessages = this.toContextMessages();
 
     const userMessage: ChatUiMessage = {
       id: crypto.randomUUID(),
@@ -50,7 +51,6 @@ export class ChatService {
     this.isStreamingState.set(true);
 
     this.activeAbortController = new AbortController();
-    const contextMessages = this.toContextMessages();
     const request: ChatRequest = {
       dashboardSnapshotId,
       dashboardSnapshot,

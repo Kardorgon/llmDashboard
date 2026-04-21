@@ -12,7 +12,7 @@ public sealed class GeminiOptions
 {
     public string BaseUrl { get; init; } = "https://generativelanguage.googleapis.com";
     public string ApiKey { get; init; } = string.Empty;
-    public string ModelId { get; init; } = "gemini-2.0-flash";
+    public string ModelId { get; init; } = "gemini-flash-latest";
 }
 
 public sealed class OllamaOptions
